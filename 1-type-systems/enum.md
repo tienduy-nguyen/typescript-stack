@@ -9,6 +9,7 @@
   - [String Enums](#string-enums)
   - [Const Enums](#const-enums)
   - [Enum with static functions](#enum-with-static-functions)
+  - [References](#references)
   
 
 ## General
@@ -244,3 +245,6 @@ const sun = Weekday.Sunday;
 console.log(Weekday.isBusinessDay(mon)); // true
 console.log(Weekday.isBusinessDay(sun)); // false
 ```
+## References
+
+[Ref](https://basarat.gitbook.io/typescript/type-system/enums)

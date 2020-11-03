@@ -78,3 +78,8 @@ const crazy = new CrazyClass(); // crazy would be {hello:123}
 ```
 
 You can declare all the crazy JS out there with interfaces and even use them safely from TypeScript. Doesn't mean you can use TypeScript classes to implement them.
+
+
+## References
+
+[Ref](https://basarat.gitbook.io/typescript/type-system/interfaces)
