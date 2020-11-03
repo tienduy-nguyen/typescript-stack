@@ -14,6 +14,7 @@
   - [Intersection type](#intersection-type)
   - [Tuple type](#tuple-type)
   - [Type alias](#type-alias)
+  - [Enum](#enum)
   - [Reference](#reference)
 
 ## Basics annotations
@@ -281,6 +282,29 @@ type Callback = (data: string) => void;
 `TIP: If you need to have hierarchies of Type annotations use an interface. They can be used with implements and extends`
 
 `TIP: Use a type alias for simpler object structures (like Coordinates) just to give them a semantic name. Also when you want to give semantic names to Union or Intersection types, a Type alias is the way to go.`
+
+
+## Enum
+
+Enum is supported in Tyscript like C#.
+
+```ts
+enum Color {Red, Green, Blue};
+let c: Color = Color.Green;
+```
+Or
+```ts
+enum Color {Red = 1, Green = 2, Blue = 4};
+let c: Color = Color.Green;
+```
+We can do like that:
+
+```ts
+enum Color {Red = 1, Green, Blue};
+let colorName: string = Color[2];
+
+alert(colorName);
+```
 
 
 ## Reference
