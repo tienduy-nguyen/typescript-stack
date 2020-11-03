@@ -11,6 +11,9 @@
     - [void](#void)
   - [Generics](#generics)
   - [Union type](#union-type)
+  - [Intersection type](#intersection-type)
+  - [Tuple type](#tuple-type)
+  - [Type alias](#type-alias)
   - [Reference](#reference)
 
 ## Basics annotations
@@ -199,7 +202,7 @@ reversedStrs = [1, 2]; // Error!
 
 ## Union type
 
-Quite commonly in JavaScript you want to allow a property to be one of multiple types e.g. a `string` or a `number`. This is where the union type (denoted by | in a type annotation e.g. `string|number`) comes in handy. A common use case is a function that can take a single object or an array of the object e.g.:
+Quite commonly in JavaScript you want to allow a property to be one of multiple types e.g. a `string` or a `number`. This is where the union type (denoted by `|` in a type annotation e.g. `string|number`) comes in handy. A common use case is a function that can take a single object or an array of the object e.g.:
 
 
 ```ts
@@ -213,5 +216,72 @@ function formatCommandline(command: string[]|string){
   // Do stuff with line: string
 }
 ```
+
+## Intersection type
+
+`extend` is a very common pattern in JavaScript where you take two objects and create a new one that has the features of both these objects. An Intersection Type allows you to use this pattern in a safe way as demonstrated below:
+
+```ts
+function extend<T, U>(first: T, second: U): T & U {
+  return { ...first, ...second };
+}
+
+const x = extend({ a: "hello" }, { b: 42 });
+
+// x now has both `a` and `b`
+const a = x.a;
+const b = x.b;
+```
+## Tuple type
+
+JavaScript doesn't have first class tuple support. People generally just use an array as a tuple. This is exactly what the TypeScript type system supports. Tuples can be annotated using : [typeofmember1, typeofmember2] etc. A tuple can have any number of members. Tuples are demonstrated in the below example:
+
+
+```ts
+var nameNumber: [string, number];
+
+// Okay
+nameNumber = ['Jenny', 8675309];
+
+// Error!
+nameNumber = ['Jenny', '867-5309'];
+```
+
+Combine this with the destructuring support in TypeScript, tuples feel fairly first class despite being arrays underneath:
+
+```ts
+var nameNumber: [string, number];
+nameNumber = ['Jenny', 8675309];
+
+var [name, num] = nameNumber;
+```
+
+## Type alias
+
+TypeScript provides convenient syntax for providing names for type annotations that you would like to use in more than one place. The aliases are created using the `type SomeName = someValidTypeAnnotation `syntax. An example is demonstrated below:
+
+```ts
+type StrOrNum = string|number;
+
+// Usage: just like any other notation
+var sample: StrOrNum;
+sample = 123;
+sample = '123';
+
+// Just checking
+sample = true; // Error!
+```
+Unlike an `interface` you can give a type alias to literally any type annotation (useful for stuff like union and intersection types). Here are a few more examples to make you familiar with the syntax:
+```ts
+type Text = string | { text: string };
+type Coordinates = [number, number];
+type Callback = (data: string) => void;
+
+```
+`TIP: If you need to have hierarchies of Type annotations use an interface. They can be used with implements and extends`
+
+`TIP: Use a type alias for simpler object structures (like Coordinates) just to give them a semantic name. Also when you want to give semantic names to Union or Intersection types, a Type alias is the way to go.`
+
+
 ## Reference
 [Ref](https://basarat.gitbook.io/typescript/type-system#primitive-types)
