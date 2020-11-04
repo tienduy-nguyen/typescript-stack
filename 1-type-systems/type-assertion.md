@@ -5,6 +5,7 @@
   - [Type Assertion vs. Casting](#type-assertion-vs-casting)
   - [Assertion considered harmful](#assertion-considered-harmful)
   - [Double assertion](#double-assertion)
+  - [Reference](#reference)
 
 TypeScript allows you to override its inferred and analyzed view of types in any way you want to. This is done by a mechanism called "type assertion". TypeScript's type assertion is purely you telling the compiler that you know about the types better than it does, and that it should not second guess you.
 A common use case for type assertion is when you are porting over code from JavaScript to TypeScript. For example consider the following pattern:
@@ -125,3 +126,7 @@ function handler(event: Event) {
 **How TypeScript determines if a single assertion is not enough**
 
 Basically, the assertion from type S to T succeeds if either S is a subtype of T or T is a subtype of S. This is to provide extra safety when doing type assertions ... completely wild assertions can be very unsafe and you need to use unknown (or any) to be that unsafe.
+
+## Reference
+
+[Ref](https://basarat.gitbook.io/typescript/type-system/type-assertion)
