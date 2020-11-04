@@ -40,3 +40,9 @@ var foo5 = {} as Foo5;
 function handler (event: Event) {
   let mouseEvent = event as MouseEvent;
 }
+
+
+let foo6: ReadonlyArray<number> = [1, 2, 3];
+console.log(foo6[0]);   // Okay
+foo6.push(4);           // Error: `push` does not exist on ReadonlyArray as it mutates the array
+foo6 = foo6.concat([4]); // Okay: create a copy
