@@ -1,1 +1,5 @@
-const arr = [1,2,3,4,5,6]
+let foo: any = 123;
+foo = "Hello";
+
+// Later
+foo.toPrecision(3); // Allowed as you typed it as `any`
