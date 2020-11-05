@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "db": "json-server -w db.json",
-    "server": "parcel index.html",
-
+    "server": "parcel index.html"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +13,8 @@
   "dependencies": {
     "axios": "^0.21.0",
     "json-server": "^0.16.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.5"
   }
 }
