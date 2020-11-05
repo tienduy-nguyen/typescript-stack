@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:db": "json-server -w db.json",
-    "start:parcel": "parcel index.html"
+    "db": "json-server -w db.json",
+    "server": "parcel index.html",
+
   },
   "keywords": [],
   "author": "",
