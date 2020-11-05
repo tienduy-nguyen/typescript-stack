@@ -1,14 +1,17 @@
-import { User } from './models/User';
+import axios, { AxiosResponse } from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import faker from 'faker';
 
-const user = new User({ name: 'myname', age: 20 });
-user.on('change', () => {
-  console.log('Change #1');
+// GET /users/:id
+// Get user by id
+axios.get('http://localhost:3000/users/1').then((res: AxiosResponse) => {
+  console.log(res.data);
 });
-user.on('change', () => {
-  console.log('Change #2');
+
+// POST /users
+// Create new user
+axios.post('http://localhost:3000/users', {
+  id: uuidv4(),
+  name: faker.name.firstName(),
+  age: Math.floor(Math.random() * 100),
 });
-user.on('save', () => {
-  console.log('Save was triggered');
-});
-user.trigger('change');
-console.log(user);

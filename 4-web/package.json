@@ -11,8 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/faker": "^5.1.4",
+    "@types/uuid": "^8.3.0",
     "axios": "^0.21.0",
-    "json-server": "^0.16.2"
+    "faker": "^5.1.0",
+    "json-server": "^0.16.2",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "typescript": "^4.0.5"
