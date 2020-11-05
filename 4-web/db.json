@@ -1,8 +1,9 @@
 {
-  "users": [{
+  "users": [
+    {
       "id": "1",
-      "name": "Lamille",
-      "age": 0
+      "name": "New Name",
+      "age": 100
     },
     {
       "name": "Bill",

@@ -45,4 +45,16 @@ export class User {
         this.set(res.data);
       });
   }
+
+  save(): void {
+    const id = this.get('id');
+    console.log(id);
+    if (id) {
+      // id exist, update user
+      axios.put(`http://localhost:3000/users/${id}`, this.data);
+    } else {
+      //id not exist, create new user
+      axios.post(`http://localhost:3000/users`, this.data);
+    }
+  }
 }
