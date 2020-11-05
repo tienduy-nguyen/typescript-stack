@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db": "json-server -w db.json",
+    "json": "json-server -w db.json",
     "server": "parcel index.html"
   },
   "keywords": [],
