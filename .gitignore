@@ -99,3 +99,7 @@ tests/cases/user/prettier/prettier
 .eslintcache
 .cache/*
 dist/*
+dist
+.DS_Store
+.cache
+node_modules
