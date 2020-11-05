@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 export interface UserProps {
-  id?: number;
+  id?: string;
   name?: string;
   age?: number;
 }
@@ -9,9 +9,12 @@ const rootUrl = 'http://localhost:3000/users';
 type Callback = () => void; // A function take no argument and return a void
 export class User {
   events: { [key: string]: Callback[] } = {}; // assign key index
-  constructor(private data: UserProps) {}
+  private data: UserProps;
+  constructor(data: UserProps) {
+    this.data = data;
+  }
   get(propName: string): number | string {
-    return '';
+    return this.data[propName];
   }
   set(update: UserProps): void {
     Object.assign(this.data, update);
@@ -36,8 +39,9 @@ export class User {
 
   fetch(): void {
     axios
-      .get(`http:localhost:3000/users/${this.get('id')}`)
-      .then((res: AxiosResponse) => {
+      .get(`http://localhost:3000/users/${this.get('id')}`)
+      .then((res: AxiosResponse): void => {
+        console.log('response', res.data);
         this.set(res.data);
       });
   }
