@@ -1,47 +1,20 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosPromise } from 'axios';
+import { UserProps } from './User';
 export class Sync {
-  fetch(): void {
-    axios
-      .get(`http://localhost:3000/users/${this.get('id')}`)
-      .then((res: AxiosResponse): void => {
-        console.log('response', res.data);
-        this.set(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-  static fetchAll(): void {
-    axios
-      .get('http://localhost:3000/users')
-      .then((res) => {
-        this.allUsers = res.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  constructor(public rootUrl: string) {}
+  fetch(id: string | number): AxiosPromise {
+    return axios.get(`${this.rootUrl}/${id}`);
   }
 
-  save(): void {
-    const id = this.get('id');
-    try {
-      axios.get(`http://localhost:3000/users/${id}`).catch((err) => {
-        if (err.response.status === 404) {
-          //id not exist, create new user
-          console.log('have error');
-          axios
-            .post(`http://localhost:3000/users`, this.data)
-            .catch((err: AxiosError) => console.log(err));
-          return;
-        }
-
-        // id exist, update user
-        axios
-          .put(`http://localhost:3000/users/${id}`, this.data)
-          .catch((err: AxiosError) => console.log(err));
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  save(data: UserProps): AxiosPromise {
+    const { id } = data;
+    axios.get(`${this.rootUrl}/${id}`).catch((err) => {
+      if (err.response.status === 404) {
+        //id not exist, create new user
+        return axios.post(`${this.rootUrl}`, data);
+      }
+    });
+    // id exist, update user
+    return axios.put(`${this.rootUrl}/${id}`, data);
   }
 }
