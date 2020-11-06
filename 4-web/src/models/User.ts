@@ -12,7 +12,7 @@ export interface UserProps extends PropsDictionary {
 
 export class User {
   events: Eventing = new Eventing();
-  allUsers: any;
+  static allUsers: UserProps[];
   constructor(private data: UserProps) {}
   get(id: string | number): number | string | undefined {
     console.log('data', this.data);
@@ -33,15 +33,14 @@ export class User {
         console.error(err);
       });
   }
-  fetchAll(): void {
+  static fetchAll(): void {
     axios
-      .get(`http://localhost:3000/users}`)
-      .then((res: AxiosResponse): void => {
-        console.log('all data', res.data);
+      .get('http://localhost:3000/users')
+      .then((res) => {
         this.allUsers = res.data;
       })
-      .catch((err) => {
-        console.error(err);
+      .catch((error) => {
+        console.log(error);
       });
   }
 

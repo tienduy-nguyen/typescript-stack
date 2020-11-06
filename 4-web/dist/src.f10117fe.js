@@ -2004,21 +2004,9 @@ var User = /*#__PURE__*/function () {
       });
     }
   }, {
-    key: "fetchAll",
-    value: function fetchAll() {
-      var _this2 = this;
-
-      axios_1.default.get("http://localhost:3000/users}").then(function (res) {
-        console.log('all data', res.data);
-        _this2.allUsers = res.data;
-      }).catch(function (err) {
-        console.error(err);
-      });
-    }
-  }, {
     key: "save",
     value: function save() {
-      var _this3 = this;
+      var _this2 = this;
 
       var id = this.get('id');
 
@@ -2027,20 +2015,31 @@ var User = /*#__PURE__*/function () {
           if (err.response.status === 404) {
             //id not exist, create new user
             console.log('have error');
-            axios_1.default.post("http://localhost:3000/users", _this3.data).catch(function (err) {
+            axios_1.default.post("http://localhost:3000/users", _this2.data).catch(function (err) {
               return console.log(err);
             });
             return;
           } // id exist, update user
 
 
-          axios_1.default.put("http://localhost:3000/users/".concat(id), _this3.data).catch(function (err) {
+          axios_1.default.put("http://localhost:3000/users/".concat(id), _this2.data).catch(function (err) {
             return console.log(err);
           });
         });
       } catch (error) {
         console.log(error);
       }
+    }
+  }], [{
+    key: "fetchAll",
+    value: function fetchAll() {
+      var _this3 = this;
+
+      axios_1.default.get('http://localhost:3000/users').then(function (res) {
+        _this3.allUsers = res.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }]);
 
@@ -2073,6 +2072,7 @@ user2.set({
 });
 user.save();
 user2.save();
+User_1.User.fetchAll();
 },{"./models/User":"src/models/User.ts"}],"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
