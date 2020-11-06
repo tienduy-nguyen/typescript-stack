@@ -1,40 +1,25 @@
-import axios, { AxiosResponse } from 'axios';
-export interface UserProps {
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { Eventing } from './Eventing';
+
+interface PropsDictionary {
+  [key: string]: string | number | undefined;
+}
+export interface UserProps extends PropsDictionary {
   id?: string;
   name?: string;
   age?: number;
 }
 
-const rootUrl = 'http://localhost:3000/users';
-type Callback = () => void; // A function take no argument and return a void
 export class User {
-  events: { [key: string]: Callback[] } = {}; // assign key index
-  private data: UserProps;
-  constructor(data: UserProps) {
-    this.data = data;
-  }
-  get(propName: string): number | string {
-    return this.data[propName];
+  events: Eventing = new Eventing();
+  allUsers: any;
+  constructor(private data: UserProps) {}
+  get(id: string | number): number | string | undefined {
+    console.log('data', this.data);
+    return this.data[id];
   }
   set(update: UserProps): void {
     Object.assign(this.data, update);
-  }
-
-  //Event
-  on(eventName: string, callback: Callback): void {
-    const handlers = this.events[eventName] || []; // Calback[] or undefined
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  }
-
-  // Trigger events
-  trigger(eventName: string): void {
-    const handlers = this.events[eventName];
-
-    if (!handlers || handlers.length === 0) return;
-    handlers.forEach((callback) => {
-      callback();
-    });
   }
 
   fetch(): void {
@@ -43,18 +28,43 @@ export class User {
       .then((res: AxiosResponse): void => {
         console.log('response', res.data);
         this.set(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  fetchAll(): void {
+    axios
+      .get(`http://localhost:3000/users}`)
+      .then((res: AxiosResponse): void => {
+        console.log('all data', res.data);
+        this.allUsers = res.data;
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }
 
   save(): void {
     const id = this.get('id');
-    console.log(id);
-    if (id) {
-      // id exist, update user
-      axios.put(`http://localhost:3000/users/${id}`, this.data);
-    } else {
-      //id not exist, create new user
-      axios.post(`http://localhost:3000/users`, this.data);
+    try {
+      axios.get(`http://localhost:3000/users/${id}`).catch((err) => {
+        if (err.response.status === 404) {
+          //id not exist, create new user
+          console.log('have error');
+          axios
+            .post(`http://localhost:3000/users`, this.data)
+            .catch((err: AxiosError) => console.log(err));
+          return;
+        }
+
+        // id exist, update user
+        axios
+          .put(`http://localhost:3000/users/${id}`, this.data)
+          .catch((err: AxiosError) => console.log(err));
+      });
+    } catch (error) {
+      console.log(error);
     }
   }
 }
