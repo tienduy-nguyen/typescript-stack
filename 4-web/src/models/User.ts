@@ -1,10 +1,11 @@
 import { Eventing } from './Eventing';
 import { Sync } from './Sync';
 
-interface PropsDictionary {
+export interface IndexSignature {
   [key: string]: string | number | undefined;
 }
-export interface UserProps extends PropsDictionary {
+// In typescript all key objects key are strings
+export interface UserProps extends IndexSignature {
   id?: string | number;
   name?: string;
   age?: number;
