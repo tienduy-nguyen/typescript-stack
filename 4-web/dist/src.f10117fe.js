@@ -2002,7 +2002,7 @@ var Sync = /*#__PURE__*/function () {
 }();
 
 exports.Sync = Sync;
-},{"axios":"node_modules/axios/index.js"}],"src/models/User.ts":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js"}],"src/models/Attributes.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2014,28 +2014,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.User = void 0;
+exports.Attributes = void 0;
 
-var Eventing_1 = require("./Eventing");
-
-var Sync_1 = require("./Sync");
-
-var rootUrl = 'http://localhost:3000/users';
-
-var User = /*#__PURE__*/function () {
-  function User(data) {
-    _classCallCheck(this, User);
+var Attributes = /*#__PURE__*/function () {
+  function Attributes(data) {
+    _classCallCheck(this, Attributes);
 
     this.data = data;
-    this.events = new Eventing_1.Eventing();
-    this.sync = new Sync_1.Sync(rootUrl);
   }
 
-  _createClass(User, [{
+  _createClass(Attributes, [{
     key: "get",
-    value: function get(id) {
-      console.log('data', this.data);
-      return this.data[id];
+    value: function get(key) {
+      return this.data[key];
     }
   }, {
     key: "set",
@@ -2044,11 +2035,38 @@ var User = /*#__PURE__*/function () {
     }
   }]);
 
-  return User;
+  return Attributes;
 }();
 
+exports.Attributes = Attributes;
+},{}],"src/models/User.ts":[function(require,module,exports) {
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.User = void 0;
+
+var Eventing_1 = require("./Eventing");
+
+var Sync_1 = require("./Sync");
+
+var Attributes_1 = require("./Attributes");
+
+var rootUrl = 'http://localhost:3000/users';
+
+var User = function User(attrs) {
+  _classCallCheck(this, User);
+
+  this.events = new Eventing_1.Eventing();
+  this.sync = new Sync_1.Sync(rootUrl);
+  this.attributes = new Attributes_1.Attributes(attrs);
+};
+
 exports.User = User;
-},{"./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts","./Attributes":"src/models/Attributes.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

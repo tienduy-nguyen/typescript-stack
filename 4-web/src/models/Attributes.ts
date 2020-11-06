@@ -1,4 +1,5 @@
 import { IndexSignature } from './User';
+import { UserProps } from './User';
 
 export class Attributes<T extends IndexSignature> {
   constructor(private data: T) {}

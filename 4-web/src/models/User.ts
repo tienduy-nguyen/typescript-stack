@@ -1,5 +1,6 @@
 import { Eventing } from './Eventing';
 import { Sync } from './Sync';
+import { Attributes } from './Attributes';
 
 export interface IndexSignature {
   [key: string]: string | number | undefined;
@@ -15,13 +16,8 @@ const rootUrl = 'http://localhost:3000/users';
 export class User {
   public events: Eventing = new Eventing();
   public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
-  static allUsers: UserProps[];
-  constructor(private data: UserProps) {}
-  get(id: string | number): number | string | undefined {
-    console.log('data', this.data);
-    return this.data[id];
-  }
-  set(update: UserProps): void {
-    Object.assign(this.data, update);
+  public attributes: Attributes<UserProps>;
+  constructor(attrs: UserProps) {
+    this.attributes = new Attributes<UserProps>(attrs);
   }
 }
