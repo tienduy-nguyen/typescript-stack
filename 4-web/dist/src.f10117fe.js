@@ -122,45 +122,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Eventing = void 0;
 
-var Eventing = /*#__PURE__*/function () {
-  function Eventing() {
-    _classCallCheck(this, Eventing);
+var Eventing = function Eventing() {
+  var _this = this;
 
-    this.events = {};
-  } //Event
+  _classCallCheck(this, Eventing);
+
+  this.events = {}; //Event
+
+  this.on = function (eventName, callback) {
+    var handlers = _this.events[eventName] || []; // Calback[] or undefined
+
+    handlers.push(callback);
+    _this.events[eventName] = handlers;
+  }; // Trigger events
 
 
-  _createClass(Eventing, [{
-    key: "on",
-    value: function on(eventName, callback) {
-      var handlers = this.events[eventName] || []; // Calback[] or undefined
-
-      handlers.push(callback);
-      this.events[eventName] = handlers;
-    } // Trigger events
-
-  }, {
-    key: "trigger",
-    value: function trigger(eventName) {
-      var handlers = this.events[eventName];
-      if (!handlers || handlers.length === 0) return;
-      handlers.forEach(function (callback) {
-        callback();
-      });
-    }
-  }]);
-
-  return Eventing;
-}();
+  this.trigger = function (eventName) {
+    var handlers = _this.events[eventName];
+    if (!handlers || handlers.length === 0) return;
+    handlers.forEach(function (callback) {
+      callback();
+    });
+  };
+};
 
 exports.Eventing = Eventing;
 },{}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
@@ -2007,36 +1996,26 @@ exports.Sync = Sync;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Attributes = void 0;
 
-var Attributes = /*#__PURE__*/function () {
-  function Attributes(data) {
-    _classCallCheck(this, Attributes);
+var Attributes = function Attributes(data) {
+  var _this = this;
 
-    this.data = data;
-  }
+  _classCallCheck(this, Attributes);
 
-  _createClass(Attributes, [{
-    key: "get",
-    value: function get(key) {
-      return this.data[key];
-    }
-  }, {
-    key: "set",
-    value: function set(update) {
-      Object.assign(this.data, update);
-    }
-  }]);
+  this.data = data;
 
-  return Attributes;
-}();
+  this.get = function (key) {
+    return _this.data[key];
+  };
+
+  this.set = function (update) {
+    Object.assign(_this.data, update);
+  };
+};
 
 exports.Attributes = Attributes;
 },{}],"src/models/User.ts":[function(require,module,exports) {
@@ -2071,6 +2050,11 @@ var User = /*#__PURE__*/function () {
   }
 
   _createClass(User, [{
+    key: "get",
+    get: function get() {
+      return this.attributes.get;
+    }
+  }, {
     key: "on",
     get: function get() {
       return this.events.on;
@@ -2096,12 +2080,16 @@ Object.defineProperty(exports, "__esModule", {
 var User_1 = require("./models/User");
 
 var user = new User_1.User({
-  id: '1'
+  id: '1',
+  name: 'Haha',
+  age: 50
 });
 user.on('change', function () {
   console.log('change with getter!');
 });
 user.trigger('change');
+var x = user.get('name');
+console.log(x);
 },{"./models/User":"src/models/User.ts"}],"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
