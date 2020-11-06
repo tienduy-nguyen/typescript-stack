@@ -2044,6 +2044,10 @@ exports.Attributes = Attributes;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -2057,13 +2061,29 @@ var Attributes_1 = require("./Attributes");
 
 var rootUrl = 'http://localhost:3000/users';
 
-var User = function User(attrs) {
-  _classCallCheck(this, User);
+var User = /*#__PURE__*/function () {
+  function User(attrs) {
+    _classCallCheck(this, User);
 
-  this.events = new Eventing_1.Eventing();
-  this.sync = new Sync_1.Sync(rootUrl);
-  this.attributes = new Attributes_1.Attributes(attrs);
-};
+    this.events = new Eventing_1.Eventing();
+    this.sync = new Sync_1.Sync(rootUrl);
+    this.attributes = new Attributes_1.Attributes(attrs);
+  }
+
+  _createClass(User, [{
+    key: "on",
+    get: function get() {
+      return this.events.on;
+    }
+  }, {
+    key: "trigger",
+    get: function get() {
+      return this.events.trigger;
+    }
+  }]);
+
+  return User;
+}();
 
 exports.User = User;
 },{"./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts","./Attributes":"src/models/Attributes.ts"}],"src/index.ts":[function(require,module,exports) {
@@ -2078,10 +2098,10 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   id: '1'
 });
-user.events.on('change', function () {
-  console.log('change!');
+user.on('change', function () {
+  console.log('change with getter!');
 });
-user.events.trigger('change');
+user.trigger('change');
 },{"./models/User":"src/models/User.ts"}],"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
