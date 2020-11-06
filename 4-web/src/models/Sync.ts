@@ -1,8 +1,7 @@
 import axios, { AxiosError, AxiosPromise } from 'axios';
-import { UserProps } from './User';
 
 interface HasId {
-  id: number | string;
+  id?: number | string;
 }
 export class Sync<T extends HasId> {
   constructor(public rootUrl: string) {}

@@ -5,13 +5,15 @@ interface PropsDictionary {
   [key: string]: string | number | undefined;
 }
 export interface UserProps extends PropsDictionary {
-  id?: string;
+  id?: string | number;
   name?: string;
   age?: number;
 }
 
+const rootUrl = 'http://localhost:3000/users';
 export class User {
-  events: Eventing = new Eventing();
+  public events: Eventing = new Eventing();
+  public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
   static allUsers: UserProps[];
   constructor(private data: UserProps) {}
   get(id: string | number): number | string | undefined {
