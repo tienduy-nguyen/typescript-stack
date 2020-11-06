@@ -4,10 +4,8 @@ const user = new User({
   name: 'Haha',
   age: 50,
 });
-user.on('change', () => {
-  console.log('change with getter!');
+user.on('save', () => {
+  console.log(user);
 });
-user.trigger('change');
 
-const x = user.get('name');
-console.log(x);
+user.save();

@@ -5,11 +5,11 @@ interface HasId {
 }
 export class Sync<T extends HasId> {
   constructor(public rootUrl: string) {}
-  fetch(id: string | number): AxiosPromise {
+  fetch = (id: string | number): AxiosPromise => {
     return axios.get(`${this.rootUrl}/${id}`);
-  }
+  };
 
-  save(data: T): AxiosPromise {
+  save = (data: T): AxiosPromise => {
     const { id } = data;
     axios.get(`${this.rootUrl}/${id}`).catch((err) => {
       if (err.response.status === 404) {
@@ -19,5 +19,5 @@ export class Sync<T extends HasId> {
     });
     // id exist, update user
     return axios.put(`${this.rootUrl}/${id}`, data);
-  }
+  };
 }
