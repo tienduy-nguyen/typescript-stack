@@ -2059,20 +2059,10 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   id: '1'
 });
-var user2 = new User_1.User({
-  id: '201'
+user.events.on('change', function () {
+  console.log('change!');
 });
-user.set({
-  name: 'New Name',
-  age: 100
-});
-user2.set({
-  name: 'User 201',
-  age: 99
-});
-user.save();
-user2.save();
-User_1.User.fetchAll();
+user.events.trigger('change');
 },{"./models/User":"src/models/User.ts"}],"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
