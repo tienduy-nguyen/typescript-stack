@@ -337,4 +337,6 @@ The solution to this is using a Arrow function because they don’t have their o
 
 ## Reference
 
-[Ref](https://medium.com/better-programming/a-practical-introduction-to-typescript-class-decorators-afb996af0763)
+[Ref: Class decorator](https://medium.com/better-programming/a-practical-introduction-to-typescript-class-decorators-afb996af0763)
+
+[Ref: Propeties decorator](https://medium.com/better-programming/an-introduction-to-typescript-property-decorators-1c9db23b6ca1)
