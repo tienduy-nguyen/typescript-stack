@@ -24,5 +24,10 @@ router.get('/login', (req, res) => {
 });
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
-    res.send(email + password);
+    let result = 'Oh no, there are some problem!';
+    if (email)
+        result = email;
+    if (password)
+        result += password;
+    res.send(result);
 });
