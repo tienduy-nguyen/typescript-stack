@@ -1,13 +1,32 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 
 interface RequestWithBody extends Request {
   body: { [key: string]: string | undefined };
 }
 
+function requireAuth(req: Request, res: Response, next: NextFunction): void {
+  if (req.session && req.session.loggedIn) {
+    next();
+    return;
+  }
+  res.status(403);
+  res.send('Not permitted');
+}
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.send('Hi there');
+  if (req.session && req.session.loggedIn) {
+    res.send(
+      `
+     <div>
+     <p>Hi there</p>
+     <a href="/logout">Logout</a>
+     </div>
+     `
+    );
+  } else {
+    res.redirect('/login');
+  }
 });
 
 router.get('/login', (req: RequestWithBody, res: Response) => {
@@ -30,10 +49,28 @@ router.get('/login', (req: RequestWithBody, res: Response) => {
 
 router.post('/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
-  let result: string = 'Oh no, there are some problem!';
-  if (email) result = email;
-  if (password) result += password;
-  res.send(result);
+  if (email === 'tester@gmail.com' && password === '123') {
+    req.session = { loggedIn: true };
+    res.redirect('/');
+  } else {
+    res.send(
+      `
+      <div>
+      <p>Invalid email or password</p>
+      <a href="/login">Try LOGIN again</a>
+      </div>
+      `
+    );
+  }
+});
+
+router.get('/logout', (req: Request, res: Response) => {
+  req.session = null;
+  res.redirect('/');
+});
+
+router.get('/protected', requireAuth, (req: Request, res: Response) => {
+  res.send('Welcome to protected route');
 });
 
 export { router };
