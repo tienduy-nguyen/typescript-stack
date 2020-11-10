@@ -9,10 +9,15 @@ interface Todo {
   title: string;
   completed: boolean;
 }
+
+interface FetchTodosAction {
+  type: ActionTypes.FETCH_TODOS;
+  payload: Todo[];
+}
 export const fetchTodos = () => {
   return async (dispatch: Dispatch) => {
     const res = await axios.get<Todo[]>(url);
-    dispatch({
+    dispatch<FetchTodosAction>({
       type: ActionTypes.FETCH_TODOS,
       payload: res.data,
     });
