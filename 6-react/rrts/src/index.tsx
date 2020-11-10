@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class App extends React.Component{
+interface AppProps{
+  color?: string;
+}
+class App extends React.Component<AppProps>{
   render(){
-    return <div>Hi there!</div>
+    return <div>{this.props.color}</div>
   }
 }
 
 ReactDOM.render(
-  <App></App>,
+  <App color="red"></App>,
   document.querySelector('#root')
 )
