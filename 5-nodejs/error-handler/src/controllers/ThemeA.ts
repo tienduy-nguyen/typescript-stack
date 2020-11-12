@@ -1,8 +1,7 @@
 import { ErrorHandler } from '../models/ErrorHandler';
 
-class ThemeAController {
-  defaultMethod() {
+export class ThemeAController {
+  defaultMethod(): ErrorHandler {
     throw new ErrorHandler(501, 'Not implemented method');
   }
 }
-export = new ThemeAController();

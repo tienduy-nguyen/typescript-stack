@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ThemeBController = void 0;
 class ThemeBController {
     defaultMethod() {
         return {
@@ -6,4 +8,4 @@ class ThemeBController {
         };
     }
 }
-module.exports = new ThemeBController();
+exports.ThemeBController = ThemeBController;
