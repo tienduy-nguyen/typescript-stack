@@ -1,0 +1,20 @@
+{
+  "name": "error-handler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -w",
+    "start": "nodemon build/index.js",
+    "dev": "concurrently \"npm run build\" \"npm run start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
+  }
+}
