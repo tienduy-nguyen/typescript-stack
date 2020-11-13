@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "webpack serve",
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack --watch --config webpack.config.js"
+    "start": "webpack --watch --config webpack.config.js",
+    "dev": "concurrently \"npm run start\" \"npm run serve\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "ts-loader": "^8.0.11",
     "typescript": "^4.0.5",
     "webpack": "^5.4.0",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
   }
 }

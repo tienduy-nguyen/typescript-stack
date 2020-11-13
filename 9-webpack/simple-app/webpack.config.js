@@ -6,13 +6,18 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
         include: [path.resolve(__dirname, 'src')],
+        use: 'ts-loader',
       },
     ],
   },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  devtool: 'eval-source-map',
   output: {
-    path: path.resolve(__dirname, 'public'),
+    publicPath: 'public',
     filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
   },
 };
