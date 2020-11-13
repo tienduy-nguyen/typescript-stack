@@ -26,7 +26,7 @@ Make sure you have TypeScript installed on your machine.
 - Init `package.json` file
   ```bash
   $ npm init -y
-  $ npm i webpack webpack-cli ts-loader -D
+  $ npm i webpack webpack-cli ts-loader typescript -D
   ```
 - Create init project file to run server
   ```bash
