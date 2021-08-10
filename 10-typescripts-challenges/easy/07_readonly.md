@@ -25,7 +25,7 @@ todo.description = "barFoo" // Error: cannot reassign a readonly property
 My solutions
 ```ts
 type MyReadonly<T> = {
-    readonly [k in keyof T]: T[k]
+    readonly [K in keyof T]: T[K]
 }
 ```
 
