@@ -4,7 +4,8 @@
 
 - My solutions:
 ````ts
-type Capitalize<S extends string> = S extends `${infer L}${infer R}` ? `${Uppercase<L>}${R}` : ''
+//type Capitalize<S extends string> = S extends `${infer L}${infer R}` ? `${Uppercase<L>}${R}` : ''
+// Using Capitalize built-in type of TypeScript
 
 type CamelCase<S extends string> = S extends `${infer L}-${infer R}`
     ? `${L}${CamelCase<Capitalize<R>>}`
