@@ -13,7 +13,7 @@ type spaceXLength = Length<spaceX> // expected 5
 ```
 
 My solution
-```
+```ts
 type Length<T extends readonly any[]> = T['length']
 ```
 
